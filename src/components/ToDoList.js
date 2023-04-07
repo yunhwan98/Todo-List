@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import DateContainer from "./DateContainer";
@@ -26,10 +27,17 @@ const TodoHead = styled.div`
   }
 `;
 
-const TodoList = ({ mode }) => {
+const TodoList = ({ todo, mode, removeTodo, updateTodo }) => {
   return mode ? (
     <Todolist>
-      <TodoItem />
+      {todo.map((it) => (
+        <TodoItem
+          key={it.id}
+          todo={it}
+          removeTodo={removeTodo}
+          updateTodo={updateTodo}
+        />
+      ))}
     </Todolist>
   ) : (
     <Todolist>
@@ -37,7 +45,14 @@ const TodoList = ({ mode }) => {
         <DateContainer mode={mode} />
         <ImgContainer mode={mode} />
       </TodoHead>
-      <TodoItem />
+      {todo.map((it) => (
+        <TodoItem
+          key={it.id}
+          todo={it}
+          removeTodo={removeTodo}
+          updateTodo={updateTodo}
+        />
+      ))}
     </Todolist>
   );
 };
