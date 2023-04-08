@@ -26,10 +26,10 @@ const ImgBox = styled.div`
   }
 `;
 
-const ImgContainer = ({ img_path, size }) => {
+const ImgContainer = ({ img_path, size, level }) => {
   return (
     <ImgBox>
-      <img src={process.env.PUBLIC_URL + `/assets/Img3.png`} />
+      <img src={process.env.PUBLIC_URL + `/assets/Img${level}.png`} />
     </ImgBox>
   );
 };

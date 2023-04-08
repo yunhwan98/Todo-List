@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import DateContainer from "./DateContainer";
@@ -13,7 +13,13 @@ const Todolist = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
+
+  > span {
+    margin: auto 0;
+    font-size: 2rem;
+  }
 `;
+
 const TodoHead = styled.div`
   display: flex;
 
@@ -27,32 +33,55 @@ const TodoHead = styled.div`
   }
 `;
 
-const TodoList = ({ todo, mode, removeTodo, updateTodo }) => {
+const TodoList = ({ todo, mode, removeTodo, updateTodo, date }) => {
+  const [todoLength, setTodolength] = useState(todo.length);
+  const [level, setLevel] = useState(0);
+
+  //todo 개수에 따라 level 설정
+  useEffect(() => {
+    const todoLength = todo.length;
+    if (todoLength >= 3) {
+      setLevel(3);
+    } else if (todoLength >= 1) {
+      setLevel(2);
+    } else {
+      setLevel(1);
+    }
+  }, [todo]);
+
   return mode ? (
     <Todolist>
-      {todo.map((it) => (
-        <TodoItem
-          key={it.id}
-          todo={it}
-          removeTodo={removeTodo}
-          updateTodo={updateTodo}
-        />
-      ))}
+      {todo.length === 0 ? (
+        <span>Empty List...</span>
+      ) : (
+        todo.map((it) => (
+          <TodoItem
+            key={it.id}
+            todo={it}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+          />
+        ))
+      )}
     </Todolist>
   ) : (
     <Todolist>
       <TodoHead>
-        <DateContainer mode={mode} />
-        <ImgContainer mode={mode} />
+        <DateContainer mode={mode} date={date} />
+        <ImgContainer mode={mode} level={level} />
       </TodoHead>
-      {todo.map((it) => (
-        <TodoItem
-          key={it.id}
-          todo={it}
-          removeTodo={removeTodo}
-          updateTodo={updateTodo}
-        />
-      ))}
+      {todo.length === 0 ? (
+        <span>Empty List...</span>
+      ) : (
+        todo.map((it) => (
+          <TodoItem
+            key={it.id}
+            todo={it}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+          />
+        ))
+      )}
     </Todolist>
   );
 };
