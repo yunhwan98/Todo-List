@@ -7,8 +7,16 @@ const CustomButton = styled.button`
   font-size: 20px;
 `;
 
-const Button = ({ img_path, text }) => {
-  return <CustomButton>{text}</CustomButton>;
+const Button = ({ img_path, text, increaseDay = null, decreaseDay = null }) => {
+  const dayHandler = () => {
+    if (increaseDay) {
+      increaseDay();
+    } else if (decreaseDay) {
+      decreaseDay();
+    }
+  };
+
+  return <CustomButton onClick={dayHandler}>{text}</CustomButton>;
 };
 
 export default Button;

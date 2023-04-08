@@ -18,17 +18,18 @@ function App() {
       .then((data) => data.json())
       .then((res) => {
         console.log(todo);
+
         setTodo(res);
       });
   };
 
   //Todo 생성
-  const createTodo = async (text) => {
+  const createTodo = async (text, date) => {
     const newTodo = {
       id: todo.length === 0 ? 1 : todo[todo.length - 1].id + 1,
       content: text,
       isComplete: false,
-      createDate: new Date(),
+      createDate: date,
     };
     await fetch("http://localhost:3001/todo", {
       method: "POST",

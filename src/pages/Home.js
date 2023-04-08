@@ -1,19 +1,19 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import DateContainer from "../components/DateContainer";
 import ImgContainer from "../components/ImgContainer";
 import TodoList from "../components/ToDoList";
 
+import { getStringDate } from "../components/DateContainer";
 const HomePage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #cbebd3;
   border: black solid 1px;
-  height: 100vh;
+  flex: 1;
   position: relative;
 `;
 
@@ -53,16 +53,55 @@ const InputContainer = styled.div`
 
 const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
   const [text, setText] = useState("");
+  const [curDate, setCurDate] = useState(new Date());
+  // 날짜에 따른 todo 설정
+  const [todayTodo, setTodayTodo] = useState([]);
+  const [level, setLevel] = useState(0);
+
+  useEffect(() => {
+    const todoLength = todayTodo.length;
+    if (todoLength >= 3) {
+      setLevel(3);
+    } else if (todoLength >= 1) {
+      setLevel(2);
+    } else {
+      setLevel(1);
+    }
+    console.log(todoLength);
+    console.log(level);
+  }, [todo, todayTodo]);
+
+  const increaseDay = () => {
+    setCurDate(
+      new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDate() + 1)
+    );
+  };
+  const decreaseDay = () => {
+    setCurDate(
+      new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDate() - 1)
+    );
+  };
+
+  useEffect(() => {
+    if (todo.length > 0) {
+      setTodayTodo(
+        todo.filter(
+          (it) =>
+            getStringDate(new Date(it.createDate)) === getStringDate(curDate)
+        )
+      );
+    }
+  }, [curDate, todo]);
 
   return (
     <HomePage>
       <Header
         headText={"Growing ToDo"}
-        leftChild={<Button text={"<"} />}
-        rightChild={<Button text={">"} />}
+        leftChild={<Button text={"<"} decreaseDay={decreaseDay} />}
+        rightChild={<Button text={">"} increaseDay={increaseDay} />}
       />
-      <DateContainer></DateContainer>
-      <ImgContainer />
+      <DateContainer date={curDate} />
+      <ImgContainer level={level} />
       <InputContainer>
         <input
           value={text}
@@ -71,8 +110,7 @@ const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
         />
         <div
           onClick={() => {
-            console.log(text);
-            createTodo(text);
+            createTodo(text, curDate);
           }}
         >
           <span className="material-symbols-outlined">water_drop</span>
@@ -80,7 +118,7 @@ const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
       </InputContainer>
       <TodoList
         mode={true}
-        todo={todo}
+        todo={todayTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />

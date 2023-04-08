@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const getStringDate = (date) => {
-  return date.toISOString().slice(0, 10);
+  try {
+    return date.toISOString().slice(0, 10);
+  } catch {
+    return date;
+  }
 };
 
 const DateBox = styled.div`
@@ -12,8 +16,8 @@ const DateBox = styled.div`
   padding: 15px;
 `;
 
-const DateContainer = () => {
-  return <DateBox>{getStringDate(new Date())}</DateBox>;
+const DateContainer = ({ date }) => {
+  return <DateBox>{getStringDate(date)}</DateBox>;
 };
 
 export default DateContainer;
