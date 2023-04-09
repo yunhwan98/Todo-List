@@ -10,6 +10,8 @@ const ReadAllPage = styled.div`
   align-items: center;
   background-color: #cbebd3;
   border: black solid 1px;
+  height: 100vh;
+  overflow: scroll;
 `;
 
 const ReadAll = ({ todo, removeTodo, updateTodo }) => {

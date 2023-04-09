@@ -13,8 +13,9 @@ const HomePage = styled.div`
   align-items: center;
   background-color: #cbebd3;
   border: black solid 1px;
-  flex: 1;
   position: relative;
+  height: 100vh;
+  overflow: scroll;
 `;
 
 const InputContainer = styled.div`
@@ -85,8 +86,8 @@ const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
         rightChild={<Button text={">"} increaseDay={increaseDay} />}
       />
       <DateContainer date={curDate} />
-      {/* <ImgContainer level={level} /> */}
-      <ImgContainer todo={todayTodo} />
+
+      <ImgContainer size={"large"} todo={todayTodo} />
       <InputContainer>
         <input
           value={text}
