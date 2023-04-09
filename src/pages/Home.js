@@ -67,8 +67,6 @@ const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
     } else {
       setLevel(1);
     }
-    console.log(todoLength);
-    console.log(level);
   }, [todo, todayTodo]);
 
   const increaseDay = () => {
@@ -83,14 +81,12 @@ const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
   };
 
   useEffect(() => {
-    if (todo.length > 0) {
-      setTodayTodo(
-        todo.filter(
-          (it) =>
-            getStringDate(new Date(it.createDate)) === getStringDate(curDate)
-        )
-      );
-    }
+    setTodayTodo(
+      todo.filter(
+        (it) =>
+          getStringDate(new Date(it.createDate)) === getStringDate(curDate)
+      )
+    );
   }, [curDate, todo]);
 
   return (

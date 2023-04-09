@@ -14,7 +14,6 @@ const ReadAllPage = styled.div`
 
 const ReadAll = ({ todo, removeTodo, updateTodo }) => {
   //날짜별 목록 생성
-
   const date_list = [
     ...new Set(todo.map((it) => getStringDate(new Date(it.createDate)))),
   ];
@@ -31,7 +30,6 @@ const ReadAll = ({ todo, removeTodo, updateTodo }) => {
           const groupTodo = todo.filter((data) => {
             return getStringDate(new Date(data.createDate)) === it;
           });
-          console.log(groupTodo);
 
           return (
             <TodoList
