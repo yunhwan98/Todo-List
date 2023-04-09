@@ -10,7 +10,6 @@ const ImgBox = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #88c9b9;
-    border-radius: 50%;
   }
 
   img {
@@ -22,7 +21,8 @@ const ImgBox = styled.div`
     //props.size에 따라 크기 변경
     width: ${(props) => (props.size === "large" ? "350px" : "100px")};
     height: ${(props) => (props.size === "large" ? "350px" : "100px")};
-    object-fit: contain;
+    object-fit: cover;
+    margin: 10px;
   }
 `;
 
@@ -43,7 +43,7 @@ const ImgContainer = ({ todo, img_path, size }) => {
 
   return (
     <ImgBox size={size}>
-      <img src={process.env.PUBLIC_URL + `/assets/Img${level}.png`} />
+      <img src={process.env.PUBLIC_URL + `/assets/Img${level}.gif`} />
     </ImgBox>
   );
 };
