@@ -25,11 +25,6 @@ const TodoHead = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-between;
-
-  img {
-    height: 100px;
-    width: 100px;
-  }
 `;
 
 const TodoList = ({ todo, mode, removeTodo, updateTodo, date }) => {
@@ -55,7 +50,7 @@ const TodoList = ({ todo, mode, removeTodo, updateTodo, date }) => {
       <TodoHead>
         <DateContainer mode={mode} date={date} />
         {/* <ImgContainer mode={mode} level={level} /> */}
-        <ImgContainer mode={mode} todo={todo} />
+        <ImgContainer size={"small"} todo={todo} />
       </TodoHead>
       {todo.length === 0 ? (
         <span>Empty List...</span>

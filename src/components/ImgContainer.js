@@ -11,8 +11,6 @@ const ImgBox = styled.div`
     align-items: center;
     background-color: #88c9b9;
     border-radius: 50%;
-    width: 350px;
-    height: 350px;
   }
 
   img {
@@ -21,8 +19,9 @@ const ImgBox = styled.div`
     align-items: center;
     background-color: #88c9b9;
     border-radius: 50%;
-    width: 350px;
-    height: 350px;
+    //props.size에 따라 크기 변경
+    width: ${(props) => (props.size === "large" ? "350px" : "100px")};
+    height: ${(props) => (props.size === "large" ? "350px" : "100px")};
     object-fit: contain;
   }
 `;
@@ -32,7 +31,7 @@ const ImgContainer = ({ todo, img_path, size }) => {
 
   //todo 개수에 따라 level 설정
   useEffect(() => {
-    const todoLength = todo.length;
+    const todoLength = todo.filter((it) => it.isComplete).length;
     if (todoLength >= 3) {
       setLevel(3);
     } else if (todoLength >= 1) {
@@ -43,7 +42,7 @@ const ImgContainer = ({ todo, img_path, size }) => {
   }, [todo]);
 
   return (
-    <ImgBox>
+    <ImgBox size={size}>
       <img src={process.env.PUBLIC_URL + `/assets/Img${level}.png`} />
     </ImgBox>
   );
