@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import DateContainer from "./DateContainer";
@@ -34,22 +33,8 @@ const TodoHead = styled.div`
 `;
 
 const TodoList = ({ todo, mode, removeTodo, updateTodo, date }) => {
-  const [todoLength, setTodolength] = useState(todo.length);
-  const [level, setLevel] = useState(0);
-
-  //todo 개수에 따라 level 설정
-  useEffect(() => {
-    const todoLength = todo.length;
-    if (todoLength >= 3) {
-      setLevel(3);
-    } else if (todoLength >= 1) {
-      setLevel(2);
-    } else {
-      setLevel(1);
-    }
-  }, [todo]);
-
   return mode ? (
+    //Home화면에 보일 TodoList
     <Todolist>
       {todo.length === 0 ? (
         <span>Empty List...</span>
@@ -65,10 +50,12 @@ const TodoList = ({ todo, mode, removeTodo, updateTodo, date }) => {
       )}
     </Todolist>
   ) : (
+    //ReadAll화면에 보일 TodoList
     <Todolist>
       <TodoHead>
         <DateContainer mode={mode} date={date} />
-        <ImgContainer mode={mode} level={level} />
+        {/* <ImgContainer mode={mode} level={level} /> */}
+        <ImgContainer mode={mode} todo={todo} />
       </TodoHead>
       {todo.length === 0 ? (
         <span>Empty List...</span>

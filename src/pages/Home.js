@@ -56,18 +56,6 @@ const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
   const [curDate, setCurDate] = useState(new Date());
   // 날짜에 따른 todo 설정
   const [todayTodo, setTodayTodo] = useState([]);
-  const [level, setLevel] = useState(0);
-
-  useEffect(() => {
-    const todoLength = todayTodo.length;
-    if (todoLength >= 3) {
-      setLevel(3);
-    } else if (todoLength >= 1) {
-      setLevel(2);
-    } else {
-      setLevel(1);
-    }
-  }, [todo, todayTodo]);
 
   const increaseDay = () => {
     setCurDate(
@@ -97,7 +85,8 @@ const Home = ({ todo, createTodo, removeTodo, updateTodo }) => {
         rightChild={<Button text={">"} increaseDay={increaseDay} />}
       />
       <DateContainer date={curDate} />
-      <ImgContainer level={level} />
+      {/* <ImgContainer level={level} /> */}
+      <ImgContainer todo={todayTodo} />
       <InputContainer>
         <input
           value={text}

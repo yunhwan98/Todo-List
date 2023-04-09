@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const ImgBox = styled.div`
@@ -26,7 +27,21 @@ const ImgBox = styled.div`
   }
 `;
 
-const ImgContainer = ({ img_path, size, level }) => {
+const ImgContainer = ({ todo, img_path, size }) => {
+  const [level, setLevel] = useState(0);
+
+  //todo 개수에 따라 level 설정
+  useEffect(() => {
+    const todoLength = todo.length;
+    if (todoLength >= 3) {
+      setLevel(3);
+    } else if (todoLength >= 1) {
+      setLevel(2);
+    } else {
+      setLevel(1);
+    }
+  }, [todo]);
+
   return (
     <ImgBox>
       <img src={process.env.PUBLIC_URL + `/assets/Img${level}.png`} />
